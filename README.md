@@ -1,2 +1,2 @@
-# Car-metro
+# Carometro
 Mini Projeto Carômetro
