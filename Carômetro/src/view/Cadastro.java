@@ -101,6 +101,8 @@ public class Cadastro extends JDialog {
 		
 		//JFileChooser -> Classe modelo que gera um explorador de arquivo
 		JFileChooser jfc = new JFileChooser();
-		
+		// showOpenDialog(this) -> abre o explorador de arquivos
+		// int resultado -> saber se o usuario selecionou um arquivo
+		int resultado = jfc.showOpenDialog(this);
 	}
 }
