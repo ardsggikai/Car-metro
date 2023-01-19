@@ -1,0 +1,53 @@
+UC9 - Lógica
+
+UC10 - POO / Banco de dados
+UC12 - Sistemas para desktop
+UC11 - Teste de software / Metodologias e ferramentas
+
+UC13 - Back-end
+
+Planejamento UCs 11 e 12 (Sistema Desktop / metodologias / testes)
+- Servidor de banco de dados (MySQL)
+
+Setup do ambiente de desenvolvimento (SENAC)
+
+1) Virtualizar um servidor de banco de dados
+- Instalar o Debian (iso na pasta pública)
+
+Material de apoio:
+https://github.com/professorjosedeassis/mysql
+
+2) Configurar um IP Fixo no servidor
+editor /etc/network/interfaces
+
+substituir dhcp por static
+
+adicionar as linhas:
+address ip/máscara (rede local)
+gateway ip (rede local)
+
+reboot
+
+2) Instalar o MySQL no Debian
+- Obter o repositório
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb
+- Instalar as chaves de criptografia
+apt install gnupg
+- Instalar o repositório
+dpkg -i mysql-apt-config_0.8.24-1_all.deb
+apt update
+apt install mysql-server
+mysql -V
+
+3) Configurar o MySQL
+mysql_secure_installation
+- Criar um usuário
+mysql -u root -p
+select user,host from mysql.user;
+create user 'dba'@'%' identified by '123@senac';
+grant all on *.* to 'dba'@'%';
+flush privileges;
+
+4) No eclipse mudar a perpectiva para java e instalar o window builder
+
+
