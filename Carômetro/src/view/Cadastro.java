@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Component;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.DAO;
 
@@ -101,7 +102,10 @@ public class Cadastro extends JDialog {
 		
 		//JFileChooser -> Classe modelo que gera um explorador de arquivo
 		JFileChooser jfc = new JFileChooser();
+		// a linha abaixo modifica o titulo do explorador de arquivos
 		jfc.setDialogTitle("Selecionar Arquivo");
+		// a linha abaixo cria um filtro para escolher determinados tipos de arquivo
+		jfc.setFileFilter(new FileNameExtensionFilter("Arquivo de Imagens(*.PNG,*.JPG,*.JPEG","png","jpg","jpeg"));
 		// showOpenDialog(this) -> abre o explorador de arquivos
 		// int resultado -> saber se o usuario selecionou um arquivo
 		int resultado = jfc.showOpenDialog(this);
