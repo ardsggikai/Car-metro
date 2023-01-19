@@ -18,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.DAO;
+import java.awt.Cursor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Main extends JFrame {
 
@@ -86,23 +89,27 @@ public class Main extends JFrame {
 		lblHoras.setBounds(10, 11, 271, 14);
 		panel.add(lblHoras);
 
-		JButton btnFoto = new JButton("");
-		btnFoto.setIcon(new ImageIcon(Main.class.getResource("/img/foto.png")));
-		btnFoto.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnFoto.setBounds(170, 35, 104, 104);
-		contentPane.add(btnFoto);
+		JButton btnAdicionar = new JButton("");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cadastro cadastro = new Cadastro ();
+				cadastro.setVisible(true);
+			}
+		});
+		btnAdicionar.setToolTipText("Adicionar Aluno(a)");
+		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAdicionar.setIcon(new ImageIcon(Main.class.getResource("/img/foto.png")));
+		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnAdicionar.setBounds(34, 11, 128, 128);
+		contentPane.add(btnAdicionar);
 
-		JButton btnSave = new JButton("");
-		btnSave.setIcon(new ImageIcon(Main.class.getResource("/img/save.png")));
-		btnSave.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnSave.setBounds(310, 75, 64, 64);
-		contentPane.add(btnSave);
-
-		JButton btnStudents = new JButton("");
-		btnStudents.setIcon(new ImageIcon(Main.class.getResource("/img/students.png")));
-		btnStudents.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnStudents.setBounds(10, 11, 128, 128);
-		contentPane.add(btnStudents);
+		JButton btnCarometro = new JButton("");
+		btnCarometro.setToolTipText("Carômetro");
+		btnCarometro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCarometro.setIcon(new ImageIcon(Main.class.getResource("/img/students.png")));
+		btnCarometro.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnCarometro.setBounds(211, 11, 128, 128);
+		contentPane.add(btnCarometro);
 	}// Fim do Construtor
 
 	DAO dao = new DAO();
