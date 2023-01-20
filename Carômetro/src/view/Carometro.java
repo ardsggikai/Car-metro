@@ -1,25 +1,26 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JDialog;
-import java.awt.Toolkit;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import java.awt.Component;
-import javax.swing.border.LineBorder;
-
-import model.DAO;
-
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JButton;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+
+import com.mysql.cj.jdbc.Blob;
+
+import model.DAO;
 
 public class Carometro extends JDialog {
 
@@ -115,6 +116,10 @@ public class Carometro extends JDialog {
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
 				txtID.setText(rs.getString(1));
+				// ler o binario e conerter para imagem
+				Blob blob = (Blob) rs.getBlob(3);
+				byte[] img = blob.getBytes(1, (int) blob.length());
+				
 			} else {
 				JOptionPane.showMessageDialog(null, "Aluno(a) nao cadastrado(a)");
 			}
