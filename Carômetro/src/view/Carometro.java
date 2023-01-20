@@ -23,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-
 import com.mysql.cj.jdbc.Blob;
 
 import model.DAO;
@@ -63,7 +62,7 @@ public class Carometro extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Carometro.class.getResource("/img/favicon.png")));
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 520, 400);
+		setBounds(100, 100, 520, 440);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
@@ -106,6 +105,16 @@ public class Carometro extends JDialog {
 		btnBuscar.setBounds(165, 11, 126, 23);
 		getContentPane().add(btnBuscar);
 
+		JButton btnDeletar = new JButton("Deletar Aluno");
+		btnDeletar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deletarAluno();
+			}
+		});
+		btnDeletar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnDeletar.setBounds(183, 355, 126, 23);
+		getContentPane().add(btnDeletar);
+
 	}// Fim do Construtor
 
 	DAO dao = new DAO();
@@ -146,5 +155,48 @@ public class Carometro extends JDialog {
 			System.out.println(e);
 		}
 	}// Fim do Metodo
+
+	/**
+	 * Metodo deletarAluno
+	 */
+
+	private void deletarAluno() {
+
+		int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir Esse Aluno(a)", "Excluir Aluno(a)!!",
+				JOptionPane.YES_NO_OPTION);
+
+		if (confirma == JOptionPane.YES_NO_OPTION) {
+
+			String delete = "delete from alunos where id = ?";
+
+			try {
+
+				Connection con = dao.conectar();
+				PreparedStatement pst = con.prepareStatement(delete);
+				pst.setString(1, txtID.getText());
+				int confirmaExcluir = pst.executeUpdate();
+				if (confirmaExcluir == 1) {
+					JOptionPane.showMessageDialog(null, "Aluno Excluido");
+					limpar();
+				}
+
+				con.close();
+
+			} catch (Exception e) {
+				System.out.println(e);
+
+			}
+		}
+
+	}
+
+	/**
+	 * Metodo Responsavel por limpar
+	 */
+
+	private void limpar() {
+		txtAluno.setText(null);
+		lblFoto.setIcon(null);
+	}// Fim do Metodo limpar
 
 }
