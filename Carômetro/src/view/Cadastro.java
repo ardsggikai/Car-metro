@@ -159,7 +159,7 @@ public class Cadastro extends JDialog {
 			JOptionPane.showMessageDialog(null, "Preencha o nome do(a) aluno(a)");
 			txtAluno.requestFocus();
 		} else {
-			String insert = "insert into alunos (nome,foto) values ?,?";
+			String insert = "insert into alunos (nome,foto) values (?,?)";
 			try {
 				Connection con = dao.conectar();
 				PreparedStatement pst = con.prepareStatement(insert);
