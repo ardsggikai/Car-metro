@@ -103,6 +103,9 @@ public class Carometro extends JDialog {
 
 	DAO dao = new DAO();
 
+	/**
+	 * Metodo De Buscar Aluno
+	 */
 	private void buscar() {
 		String read = "select * from alunos where nome = ?";
 		try {
@@ -118,5 +121,6 @@ public class Carometro extends JDialog {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	}
+	}// Fim do Metodo
+
 }
