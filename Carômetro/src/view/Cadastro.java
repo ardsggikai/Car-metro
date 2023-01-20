@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -17,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -96,6 +99,11 @@ public class Cadastro extends JDialog {
 		getContentPane().add(lblFoto);
 
 		JButton btnSalvar = new JButton("");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				salvarFoto();
+			}
+		});
 		btnSalvar.setIcon(new ImageIcon(Cadastro.class.getResource("/img/save.png")));
 		btnSalvar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSalvar.setBounds(367, 268, 64, 64);
@@ -105,6 +113,9 @@ public class Cadastro extends JDialog {
 
 	DAO dao = new DAO();
 
+	/**
+	 * Metodo Responsavel por selecionarFoto
+	 */
 	private void selecionarFoto() {
 
 		// JFileChooser -> Classe modelo que gera um explorador de arquivo
@@ -135,5 +146,51 @@ public class Cadastro extends JDialog {
 				System.out.println(e);
 			}
 		}
-	}
+	}// Fim Metodo SelecionarFoto
+
+	/**
+	 * Metodo Responsavel por salvarFoto
+	 */
+
+	private void salvarFoto() {
+
+		// Validacao
+		if (txtAluno.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preencha o nome do(a) aluno(a)");
+			txtAluno.requestFocus();
+		} else {
+			String insert = "insert into alunos (nome,foto) values ?,?";
+			try {
+				Connection con = dao.conectar();
+				PreparedStatement pst = con.prepareStatement(insert);
+				pst.setString(1, txtAluno.getText());
+				// setar o banco de dados com a imagem
+				// fis (arquivo de imagem no formato binario)
+				// tamanho (tamanho da imagem em bytes)
+				pst.setBlob(2, fis, tamanho);
+				int confirma = pst.executeUpdate();
+				if (confirma == 1) {
+					JOptionPane.showMessageDialog(null, "Aluno(a) cadastrado(a) com sucesso");
+					limpar();
+				} else {
+					JOptionPane.showMessageDialog(null, "Aluno(a) cadastrado(a) Não Cadastrado(a)");
+					limpar();
+				}
+
+			} catch (Exception e) {
+				System.out.print(e);
+			}
+		}
+
+	}// Fim do Metodo SalvarFoto
+
+	/**
+	 * Metodo Responsavel por limpar
+	 */
+
+	private void limpar() {
+		txtAluno.setText(null);
+		lblFoto.setIcon(null);
+	}// Fim do Metodo limpar
+
 }
