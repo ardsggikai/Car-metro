@@ -92,7 +92,7 @@ public class Main extends JFrame {
 		JButton btnAdicionar = new JButton("");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Cadastro cadastro = new Cadastro ();
+				Cadastro cadastro = new Cadastro();
 				cadastro.setVisible(true);
 			}
 		});
@@ -104,6 +104,12 @@ public class Main extends JFrame {
 		contentPane.add(btnAdicionar);
 
 		JButton btnCarometro = new JButton("");
+		btnCarometro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Carometro carometro = new Carometro();
+				carometro.setVisible(true);
+			}
+		});
 		btnCarometro.setToolTipText("Carômetro");
 		btnCarometro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCarometro.setIcon(new ImageIcon(Main.class.getResource("/img/students.png")));
