@@ -4,13 +4,19 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -111,18 +117,31 @@ public class Carometro extends JDialog {
 		String read = "select * from alunos where nome = ?";
 		try {
 			Connection con = dao.conectar();
-			PreparedStatement pst = con.prepareCall(read);
+			PreparedStatement pst = con.prepareStatement(read);
 			pst.setString(1, txtAluno.getText());
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
 				txtID.setText(rs.getString(1));
-				// ler o binario e conerter para imagem
+				// Ler o binário e converter para imagem
 				Blob blob = (Blob) rs.getBlob(3);
 				byte[] img = blob.getBytes(1, (int) blob.length());
-				
+				// "papel" que vai "imprimir" a imagem
+				BufferedImage imagem = null;
+				try {
+					// renderizar a imagem (desenhar a foto(pixels) no "papel")
+					imagem = ImageIO.read(new ByteArrayInputStream(img));
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				// setar a imagem no JLabel
+				ImageIcon icone = new ImageIcon(imagem);
+				Icon foto = new ImageIcon(icone.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(),
+						Image.SCALE_SMOOTH));
+				lblFoto.setIcon(foto);
 			} else {
-				JOptionPane.showMessageDialog(null, "Aluno(a) nao cadastrado(a)");
+				JOptionPane.showMessageDialog(null, "Aluno(a) não cadastrado(a)");
 			}
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
