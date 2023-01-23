@@ -170,7 +170,6 @@ date_format(dataval,'%d/%m/%Y'),
 estoque, estoquemin
 from produtos where estoque < estoquemin;
 	
-
 -- relatório 6 (Produtos Vencidos)
 -- datediff() (calcula a diferenças de datas)
 select codigo as Código, produto as Produto, localizacao as Localização, 
@@ -184,10 +183,7 @@ date_format(dataval,'%d/%m/%Y'),
 datediff(dataval,curdate())
 from produtos where datediff(dataval,curdate()) <0;
 
- 
  /* Fim select especial */
- 
-
  
  /* Fim */
 
