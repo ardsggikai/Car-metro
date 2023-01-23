@@ -112,7 +112,7 @@ idFor (chave estrangeira) usar mesmo nome e tipo de dados da chave primaria (PK)
  -- Descrever produtos
 describe produtos;
 
--- inserir produto (Dando B.o)
+-- inserir produto 
 insert produtos (barcode,produto,descricao,fabricante,dataval,estoque,estoquemin,unidade,localizacao,custo,lucro,idFor)
 values ('11111111','Caneta BIC Azul','Caneta BIC Cor Azul,Ponta Fina CX 50','BIC',20231122,20,5,'CX','Prateleira 2',38.50,20,2);
 insert produtos (barcode,produto,descricao,fabricante,dataval,estoque,estoquemin,unidade,localizacao,custo,lucro,idFor)
@@ -195,7 +195,7 @@ update fornecedores set razaoSocial = 'teste1', fantasia = 'teste1', cnpj = 'tes
 
 -- Criando Tabela clientes --
 create table clientes (
-idFor int primary key auto_increment,
+idcli int primary key auto_increment,
 Nome varchar(50) not null,
 CPF varchar(20) unique,
 Cep varchar(10) unique,
@@ -208,7 +208,9 @@ Uf char(2) not null,
 Telefone varchar(15) not null,
 Email varchar(50) not null
 );
-/*********** CRUD fornecedores ***********/
+
+
+/********* Começo Clientes *********/
 
 insert into clientes (Nome, CPF, Cep, Endereco, Numero, Complemento, Bairro, Cidade, Uf, Telefone,  Email) 
 values ('Allan','111.111.111-11','11111-11','TESTE','111','Teste','TESTE','São Paulo','SP','11111-1111','Teste@teste.com');
@@ -227,11 +229,23 @@ select * from clientes;
 -- pesquisa avançada 
 select idFor, Nome, CPF, Cep, Endereco, Numero, Complemento, Bairro, Cidade, Uf, Telefone, Email from clientes where Nome like ('A%');
 
-/********* Começo Clientes *********/
-
-
 
 /********* Fim Clientes *********/
+
+/********* Começo Pedidos *********/
+
+-- tabela de pedidos (1 cliente --- N pedidos)
+create table pedidos (
+pedido int primary key auto_increment,
+dataped timestamp default current_timestamp,
+total decimal (10,2),
+idcli int not null,
+foreign key(idcli) references clientes (idcli)
+);
+
+
+/********* Fim Pedidos *********/
+
 
 -- inserindo uma senha criptografada com md5
 insert into usuarios (usuario,login,senha,perfil)
