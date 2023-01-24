@@ -174,3 +174,34 @@ create table carrinho (
     foreign key(codigo) references produtos(codigo)
 );
 
+-- insert produtos no carrinho
+insert into carrinho (pedido,codigo,quantidade)
+values (1,1,10);
+insert into carrinho (pedido,codigo,quantidade)
+values (1,3,1);
+
+select * from carrinho;
+
+-- Exibir o carrinho
+select
+pedidos.pedido,
+carrinho.codigo as código,
+produtos.produto,
+carrinho.quantidade,
+produtos.custo + ((custo * lucro) / 100) as valor,
+(produtos.custo + ((custo * lucro) / 100)) * carrinho.quantidade as sub_total
+from (carrinho inner join pedidos on carrinho.pedido = pedidos.pedido)
+inner join produtos on carrinho.codigo = produtos.codigo;
+-- (custo + lucro) * quantidade
+
+-- PROJETO VAI ATE AKI
+
+-- Fechamento do pedido e atualização do estoque
+update carrinho
+inner join produtos
+on carrinho.codigo = produtos.codigo
+set produtos.estoque = produtos.estoque - carrinho.quantidade 
+where carrinho.quantidade > 0;
+
+-- conferir se deu baixa
+select * from produtos;
