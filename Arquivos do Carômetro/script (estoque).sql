@@ -5,6 +5,7 @@
 */
 
 show databases;
+drop database dbestoque;
 create database dbestoque;
 use dbestoque;
 

@@ -1,6 +1,6 @@
 /**
     Projeto de um sistema de E-commerce
-    @author Professor José de Assis
+    @author Allan Gomes
     @version 1.3
 */
 
@@ -100,7 +100,7 @@ values
 select * from produtos;
 
 -- Obter o preço de venda dos produtos
-select codigo as código,produto,custo,
+select codigo as código,produto,custo,lucro,
 (custo + (custo * lucro)/100) as venda
 from produtos;
 
