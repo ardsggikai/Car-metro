@@ -246,6 +246,18 @@ foreign key(idcli) references clientes (idcli)
 
 /********* Fim Pedidos *********/
 
+/********* Começo Carrinhos *********/
+
+-- tabela carrinho (ex: de relacionamento N -- N (muitos pra muitos)
+create table carrinho (
+pedido int not null,
+codigo int not null,
+quantidade int not null,
+foreign key(pedido) references pedidos(pedido),
+foreign key(codigo) references produtos(codigo)
+);
+
+/********* Fim Carrinho *********/
 
 -- inserindo uma senha criptografada com md5
 insert into usuarios (usuario,login,senha,perfil)
